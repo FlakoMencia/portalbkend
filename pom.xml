@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.personal</groupId>
     <artifactId>portalbkend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>portalbkend</name>
     <description>mario mencia test </description>
     <properties>

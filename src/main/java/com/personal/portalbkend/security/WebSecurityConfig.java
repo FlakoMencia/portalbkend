@@ -20,7 +20,7 @@ import static com.personal.portalbkend.security.enums.Role.*;
 @EnableWebSecurity
 public class WebSecurityConfig implements WebMvcConfigurer {
 
-    private static final String[] URL_PERMIT_ALL ={"/api/authenticate", "/api/isAlive", "/api/colsubsidio/register"};
+    private static final String[] URL_PERMIT_ALL ={"/api/authenticate", "/api/isAlive", "/api/user/register"};
 
 
     @Override
@@ -42,8 +42,10 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(URL_PERMIT_ALL).permitAll()
-                        .requestMatchers("/api/col/admin/**").hasAnyRole(ADMIN.name())
-                        .requestMatchers("/api/logistic/**").hasAnyRole(ADMIN.name(), USER.name())
+                        .requestMatchers("/api/user/activate").hasAnyRole(ADMIN.name())
+                        .requestMatchers("/api/user/disable").hasAnyRole(ADMIN.name())
+                        .requestMatchers("/api/user/list").hasAnyRole(ADMIN.name(), USER.name())
+                        .requestMatchers("/api/user/find").hasAnyRole(ADMIN.name(), USER.name())
                         .anyRequest().authenticated())
                 .exceptionHandling((exceptionHandling) -> exceptionHandling
                         .accessDeniedPage("/errors/access-denied")

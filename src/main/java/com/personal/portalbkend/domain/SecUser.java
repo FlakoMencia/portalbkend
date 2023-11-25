@@ -7,6 +7,8 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -44,7 +46,7 @@ public class SecUser implements Serializable {
     private String stCreUser;
     @Basic
     @Column(name = "dt_create", nullable = false)
-    private Date dtCreate;
+    private LocalDateTime dtCreate;
     @Basic
     @Column(name = "is_active", nullable = true)
     private Boolean isActive;
@@ -53,13 +55,13 @@ public class SecUser implements Serializable {
     private String stModUser;
     @Basic
     @Column(name = "dt_modify", nullable = true)
-    private Date dtModify;
+    private LocalDateTime dtModify;
     @Basic
     @Column(name = "jw_token", nullable = true, length = -1)
     private String jwToken;
     @Basic
     @Column(name = "dt_last_connect", nullable = true)
-    private Date dtLastConnection;
+    private LocalDateTime dtLastConnection;
 
     @OneToMany(mappedBy = "secUserByFkUser", fetch = FetchType.EAGER)
     @Getter(onMethod = @__(@JsonIgnore))

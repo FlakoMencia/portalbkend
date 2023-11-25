@@ -8,7 +8,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serial;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,6 +23,9 @@ public class SecurityUserDetails implements UserDetails {
     private String stEmail;
     private String password;
     private Boolean isEnable;
+    private LocalDateTime created;
+    private LocalDateTime modified;
+    private LocalDateTime lastLogin;
     private List<String> rolls = new ArrayList<>();
 //    private List<Auth> Authorities = new ArrayList<>();
 
@@ -63,23 +66,4 @@ public class SecurityUserDetails implements UserDetails {
         return this.isEnable;
     }
 
-//    @Setter
-//    @Getter
-//    public static class Auth implements GrantedAuthority {
-//
-
-
-//
-//        public Auth(String name) {
-//            this.name = name;
-//        }
-//
-//        private String name;
-//
-//        @Override
-//        public String getAuthority() {
-//            return this.name;
-//        }
-//
-//    }
 }

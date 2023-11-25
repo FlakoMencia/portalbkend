@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -42,12 +43,12 @@ public class SecRole implements Serializable {
     private String stCreUser;
     @Basic
     @Column(name = "dt_create", nullable = false)
-    private Date dtCreate;
+    private LocalDate dtCreate;
     @Basic
     @Column(name = "st_mod_user", nullable = true, length = 150)
     private String stModUser;
     @Basic
     @Column(name = "dt_modify", nullable = true)
-    private Date dtModify;
+    private LocalDate dtModify;
 
 }

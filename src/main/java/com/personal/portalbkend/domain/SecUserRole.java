@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -34,7 +35,7 @@ public class SecUserRole implements Serializable {
     private String stCreUser;
     @Basic
     @Column(name = "dt_create", nullable = false)
-    private Date dtCreate;
+    private LocalDate dtCreate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user", referencedColumnName = "id_user", nullable = false)

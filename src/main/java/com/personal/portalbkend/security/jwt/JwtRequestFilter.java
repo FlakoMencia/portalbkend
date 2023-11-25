@@ -1,5 +1,8 @@
 package com.personal.portalbkend.security.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.personal.portalbkend.common.ApiResponse;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain) throws ServletException, IOException {
+            @NonNull FilterChain filterChain) throws ServletException, IOException , ExpiredJwtException {
         final String requestTokenHeader = request.getHeader(tokenHeader);
 
         String username = null;
@@ -48,6 +52,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
                 logger.info("Unable to get JWT Token");
+            } catch (ExpiredJwtException e) {
+                logger.info(e.getMessage());
+                ApiResponse apiResponse = new ApiResponse(false, e.getMessage());
+                ObjectMapper objectMapper = new ObjectMapper();
+                String jsonResponse = objectMapper.writeValueAsString(apiResponse);
+//                response.sendError(406, e.getMessage());
+                response.setStatus(403);
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.getWriter().write(jsonResponse);
+
+                return;
             }
         } else {
             logger.warn("JWT Token does not begin with Bearer String");

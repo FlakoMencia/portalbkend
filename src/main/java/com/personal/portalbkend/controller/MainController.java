@@ -5,17 +5,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/isAlive")
+@RequestMapping("/api")
 public class MainController {
 
-    public MainController(){
+    public MainController(){}
 
-    }
-
-    @GetMapping()
+    /**
+     * Unicamente para comprobar estado de API
+     * @return
+     */
+    @GetMapping("/isAlive")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> areWeAlive() {
-        String alive = "We stand Alive ( welcome to Mario Mencia - Colsubsidio Test )";
+        String alive = "<h2> We stand Alive ( welcome to Mario Mencia - Colsubsidio Test ) <h2/>";
         return ResponseEntity.ok(alive);
     }
 

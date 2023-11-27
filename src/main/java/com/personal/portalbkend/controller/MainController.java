@@ -17,7 +17,7 @@ public class MainController {
     @GetMapping("/isAlive")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> areWeAlive() {
-        String alive = "<h2> We stand Alive ( welcome to Mario Mencia - Colsubsidio Test ) <h2/>";
+        String alive = "<h2> We stand Alive ( BackEnd Mario Mencia - Colsubsidio Test ) <h2/>";
         return ResponseEntity.ok(alive);
     }
 
